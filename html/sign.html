@@ -1,0 +1,128 @@
+<?php
+//session值的读取:
+	session_start();
+    $student_nam = $_SESSION['student_nam'];
+    $student_num = $_SESSION['student_num'];
+    $line=$_SESSION["late_line_t"];
+	$row=$_SESSION["late_row_t"];
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <title>学生签到</title>
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+        }
+        a{
+            text-decoration: none;
+        }
+        input,button
+        {
+            background: transparent;
+            border: none;
+            outline: none;
+        }
+        body{
+            height: 100vh;
+            background: linear-gradient(#141e30,#fff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px;
+            color: #03e9f4;
+        }
+        .sign {
+            width: 800px;
+            height: 500px;
+            background: rgba(0,0,0,0.3);
+            box-shadow: 0px 15px 25px 0 rgba(0,0,0,.6);
+            padding: 40px;
+            box-sizing: border-box;
+        }
+        h2 {
+            text-align: center;
+            color: #fff;
+            margin-bottom: 30px;
+        }
+        .stu-select{
+            height: 45px;
+            margin-bottom:40px;
+            position: relative;
+        }
+        .btn {
+            background-color: #03e9;
+            border: none;
+            color: white;
+            padding:15px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 18px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        .show{
+            font-size: 16px;
+            color: black;
+        }
+        .show .stu-select{
+            width: 400px;
+            height: 200px;
+        }
+        .stu-sign {
+            background-color: #03e9;
+            border: none;
+            color: white;
+            padding:15px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 18px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div class="logoff">
+			<a href="#"><span><em class="username">返回主页</em></span></a>
+			<a href="index.html" id="logout"><img src="../images/out.png" alt="注销登录"></a>
+		</div>
+<div class="sign">
+    <h2>未赴约记录（教师用）</h2>
+    
+    <form  class="show" action="teach_deal_Fap.php" method="post">
+        <select  class="stu-select" id="select" name="tacherselect" multiple size="6">
+            <?php 
+    				for($i=0; $i<$line; $i++)
+    				{
+            ?>
+    					<optgroup label="<?php echo $row[$i][3]." ".$row[$i][4]." ".$row[$i][2]; ?>"  >
+                		<option value="<?php echo $row[$i][0]; ?>" ><?php echo "姓名：".$row[$i][1]."  邮箱：".$row[$i][5]; ?></option>
+            			</optgroup>
+   			<?php
+                    }
+    		?>
+        </optgroup>
+        </select>
+        <div class="stu-select" id="info1">
+            <em>原因：</em>
+            <span class="select1">
+            <select name="reason">
+                <option value="该同学个人原因未到">该同学个人原因未到</option>
+                <option value="本人个人原因未到">本人个人原因未到</option>
+                <option value="学校安排">学校安排</option>
+                <option value="其他">其他</option>
+            </select>
+        </span>
+        </span>
+            <button class="btn">确定该同学未到</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
