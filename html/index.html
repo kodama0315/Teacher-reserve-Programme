@@ -1,0 +1,214 @@
+<?php
+//session值的读取:
+	session_start();
+  $student_nam = $_SESSION['student_nam'];
+  $student_num = $_SESSION['student_num'];
+  
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta content="width=device-width,user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0" name="viewport">
+	<meta content="ie=edge" http-equiv="X-UA-Compatible">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">  <!-- 以上代码告诉IE浏览器，IE8/9及以后的版本都会以最高版本IE来渲染页面。 -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>哈尔滨工业大学（威海）教师预约系统</title>
+	<style>
+		*{
+			margin:0;
+			padding: 0;
+		}
+		html,body{
+			width: 100%;
+			height: 100vh;
+			background-image: url("../images/background.png");
+			background-repeat:no-repeat;
+			background-position:center;
+			display: flex;
+            flex-direction: column;/*轴*/
+			justify-content: flex-start;
+			align-items:center ;
+		}
+		.btn-box{
+			width: 1200px;
+			display: flex;
+			justify-content:space-between;
+			align-items:center ;/*交叉轴对齐*/
+			flex-wrap: wrap;
+			position:relative
+		}
+		.name{
+			position: relative;
+			width: 400px;
+			height: 150px;
+			border-radius: 10px;
+			overflow: hidden;
+			display: flex;
+			justify-content:center;
+			align-items:center ;
+			color: white;
+			text-align: center;
+			user-select: none;
+			margin: 5px;
+			box-shadow: 10px 10px 10px rgba(0,0,0,0.2);
+			font-size: 50px;
+		}
+		.box{
+			position: relative;
+			width: 400px;
+			height: 150px;
+			border-radius: 10px;
+			overflow: hidden;
+			display: flex;
+			justify-content:center;
+			align-items:center ;
+			color: white;
+			text-align: center;
+			user-select: none;
+			margin: 5px;
+			box-shadow: 10px 10px 10px rgba(0,0,0,0.2);
+			font-size: 30px;
+			font-family: 'DejaVu Sans', Arial, Helvetica, sans-serif;
+		}
+		.box:nth-of-type(1){
+			background: linear-gradient(
+			150deg,
+			rgba(251,122,8),
+			rgb(240,47,31)
+			);
+		}
+		.box:nth-of-type(2){
+			background: linear-gradient(
+					150deg,
+					rgba(241,43,84),
+					rgb(237,11,125)
+			);
+		}
+		.box:nth-of-type(3){
+			background: linear-gradient(
+					150deg,
+					rgba(65,182,73),
+					rgb(125,195,65)
+			);
+		}
+		.box:nth-of-type(4){
+			background: linear-gradient(
+					150deg,
+					rgba(5,141,239),
+					rgb(22,175,194)
+			);
+		}
+		.box:nth-of-type(5){
+			background: linear-gradient(
+					150deg,
+					rgba(134,0,255),
+					rgb(103,0,255)
+			);
+		}
+        .box:nth-of-type(6){
+            background: linear-gradient(
+                    150deg,
+                    rgba(209,11,148),
+                    rgb(113,52,178)
+            );
+        }
+		.name:nth-of-type(1){
+			background: linear-gradient(
+					150deg,
+					rgba(142,229,213),
+					rgb(35,205,182)
+			);
+		}
+		.ripple{
+			display: block;
+			position: absolute;
+			border-radius: 100%;
+			background: rgba(255,255,255,0.5);
+			transform: scale(0);
+		}
+		.animation{
+			animation: ripple 0.5s ease-in;
+		}
+		@keyframes ripple {
+			100%{
+				transform: scale(3);
+				opacity: 0;
+			}
+		}
+	</style>
+</head>
+<body>
+<!--<header>
+	<div class="logo">
+		<img src="../images/logo1.png" alt="哈尔滨工业大学（威海）logo" class="logo-img vertical-center">
+		<h1 class="vertical-center">教师预约管理系统</h1>
+	</div>
+</header>-->
+<div class="name">
+	<span class="ripple"></span>
+	<img src="../images/my.png" height="50px" width="50px"/>
+	<p><?php echo $student_nam ?><?php echo $student_num ?></p>
+</div>
+<div class="btn-box">
+
+	<div class="box">
+		<span class="ripple"></span>
+		<a href="teacher_select.html">教师预约</a>
+	</div>
+	<div class="box">
+		<span class="ripple"></span>
+		<a href="reserve_record_php.php">预约记录</a>
+	</div>
+	<div class="box">
+		<span class="ripple"></span>
+		<a href="search_cancle.php">取消预约</a>
+	</div>
+	<div class="box">
+		<span class="ripple"></span>
+		<a href="teacher_register_php.php">联系管理员</a>
+	</div>
+	<div class="box">
+		<span class="ripple"></span>
+		<a href="default_record_php.php">未到达预约</a>
+	</div>
+	<div class="box">
+		<span class="ripple"></span>
+		<a href="teacher_release_php.php">可约教师</a>
+	</div>
+</div>
+<div class="board">
+	<h2>公告栏</h2>
+	<marquee behavior="scroll" direction="down">
+	<?php
+    header("Content-type: text/html; charset=utf-8");
+    $a = file('./file.txt');
+    foreach($a as $line => $content){
+    ?>
+        <a href="1"><?php echo $content ?></a><br>
+    
+    <?php
+    }
+	?>
+	</marquee>
+</div>
+<script>
+	let box = document.querySelectorAll(".box");
+ 	for(let i=0;i<box.length;i++){
+		box[i].onmouseenter=function () {
+			let ripple=box[i].querySelector(".ripple");
+			ripple.classList.add("animation");
+			ripple.style.width=this.offsetWidth+"px";
+			ripple.style.height=this.offsetWidth+"px";
+			ripple.style.top=(this.offsetHeight-event.offsetY)+"px";
+            ripple.style.left=(this.offsetWidth/2-event.offsetX)+"px";
+
+            setTimeout(function () {
+                ripple.classList.remove("animation");
+            },500)
+		}
+	}
+</script>
+</body>
+</html>
